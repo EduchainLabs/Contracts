@@ -1,9 +1,9 @@
 const hre = require("hardhat");
 
 async function main() {
-  const deployedContract = await hre.ethers.deployContract("OnChainLab");
+  const deployedContract = await hre.ethers.deployContract("CodeBounty");
   await deployedContract.waitForDeployment();
-  console.log(`OnChainLab contract deployed to ${deployedContract.target}`);
+  console.log(`CodeBounty contract deployed to ${deployedContract.target}`);
 }
 
 main().catch((error) => {
