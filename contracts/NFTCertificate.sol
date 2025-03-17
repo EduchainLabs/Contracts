@@ -21,7 +21,7 @@ contract NFTCertificate is ERC721, Ownable {
 
     constructor() ERC721 ("NFTCertificate", "CERT") Ownable(msg.sender) {}
 
-    function mintCertificate(address recipient, uint256 metadataIndex) external onlyOwner{
+    function mintCertificate(address recipient, uint256 metadataIndex) external{
         require(metadataIndex < nftMetadataURIs.length, "Invalid metadata index");
         require(!hasMinted[recipient], "Certificate has already been minted for this address");
         uint256 tokenId = nextTokenId;
