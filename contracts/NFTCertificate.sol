@@ -14,21 +14,20 @@ contract NFTCertificate is ERC721, Ownable {
     ];
 
     uint256 public nextTokenId;
-    mapping(address => bool) public hasMinted;
     mapping(uint256 => uint256) private tokenIdToMetadataIndex;
 
-    event CertificateMinted(address recepient, uint256 tokenId, string metadataURI);
+    event CertificateMinted(address recipient, uint256 tokenId, string metadataURI);
 
-    constructor() ERC721 ("NFTCertificate", "CERT") Ownable(msg.sender) {}
+    constructor() ERC721("NFTCertificate", "CERT") Ownable(msg.sender) {}
 
-    function mintCertificate(address recipient, uint256 metadataIndex) external onlyOwner{
+    function mintCertificate(address recipient, uint256 metadataIndex) external {
         require(metadataIndex < nftMetadataURIs.length, "Invalid metadata index");
-        require(!hasMinted[recipient], "Certificate has already been minted for this address");
+
         uint256 tokenId = nextTokenId;
         _safeMint(recipient, tokenId);
         tokenIdToMetadataIndex[tokenId] = metadataIndex;
-        hasMinted[recipient] = true;
-        nextTokenId ++;
+        nextTokenId++;
+
         emit CertificateMinted(recipient, tokenId, nftMetadataURIs[metadataIndex]);
     }
 
@@ -36,5 +35,4 @@ contract NFTCertificate is ERC721, Ownable {
         uint256 metadataIndex = tokenIdToMetadataIndex[tokenId]; 
         return nftMetadataURIs[metadataIndex];
     }
-
 }
