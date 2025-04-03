@@ -15,6 +15,7 @@ contract CodeBounty {
         string title;
         string description;
         string requirements;
+        string[] tags;
         Status challengeStatus;
         uint256 submissionsCount;
         uint256 startTime;
@@ -74,6 +75,7 @@ contract CodeBounty {
         string memory _title,
         string memory _description,
         string memory _requirements,
+        string[] memory _tags,
         uint256 _bountyAmount,
         uint256 _durationInDays
     ) external payable {
@@ -88,6 +90,7 @@ contract CodeBounty {
             title: _title,
             description: _description,
             requirements: _requirements,
+            tags: _tags,
             challengeStatus: Status.waiting,
             submissionsCount: 0,
             startTime: block.timestamp,
@@ -99,6 +102,7 @@ contract CodeBounty {
     }
     
     function submitSolution(uint256 _challengeId, bytes32 _solutionHash) external challengeNotExpired(_challengeId) {
+        require(msg.sender != challenges[_challengeId].creator, "Creator cannot submit solution");
         require(challenges[_challengeId].challengeStatus == Status.waiting, "Challenge is not active");
         
         challengeSubmissions[_challengeId].push(Submission({
