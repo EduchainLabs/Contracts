@@ -267,4 +267,79 @@ contract CodeBounty {
             stats.totalRewards
         );
     }
+
+    function getCompletedChallenges() external view returns (Challenge[] memory) {
+        uint256 completedCount = 0;
+        
+        // First, count completed challenges
+        for (uint256 i = 1; i <= challengeIdCounter; i++) {
+            if (challenges[i].challengeStatus == Status.completed) {
+                completedCount++;
+            }
+        }
+        
+        // Create array of appropriate size
+        Challenge[] memory completedChallenges = new Challenge[](completedCount);
+        
+        // Fill array with completed challenges
+        uint256 currentIndex = 0;
+        for (uint256 i = 1; i <= challengeIdCounter; i++) {
+            if (challenges[i].challengeStatus == Status.completed) {
+                completedChallenges[currentIndex] = challenges[i];
+                currentIndex++;
+            }
+        }
+        
+        return completedChallenges;
+    }
+
+    function getCancelledChallenges() external view returns (Challenge[] memory) {
+        uint256 cancelledCount = 0;
+        
+        // First, count cancelled challenges
+        for (uint256 i = 1; i <= challengeIdCounter; i++) {
+            if (challenges[i].challengeStatus == Status.cancelled) {
+                cancelledCount++;
+            }
+        }
+        
+        // Create array of appropriate size
+        Challenge[] memory cancelledChallenges = new Challenge[](cancelledCount);
+        
+        // Fill array with cancelled challenges
+        uint256 currentIndex = 0;
+        for (uint256 i = 1; i <= challengeIdCounter; i++) {
+            if (challenges[i].challengeStatus == Status.cancelled) {
+                cancelledChallenges[currentIndex] = challenges[i];
+                currentIndex++;
+            }
+        }
+        
+        return cancelledChallenges;
+    }
+    
+    function getExpiredChallenges() external view returns (Challenge[] memory) {
+        uint256 expiredCount = 0;
+        
+        // First, count expired challenges
+        for (uint256 i = 1; i <= challengeIdCounter; i++) {
+            if (challenges[i].challengeStatus == Status.expired) {
+                expiredCount++;
+            }
+        }
+        
+        // Create array of appropriate size
+        Challenge[] memory expiredChallenges = new Challenge[](expiredCount);
+        
+        // Fill array with expired challenges
+        uint256 currentIndex = 0;
+        for (uint256 i = 1; i <= challengeIdCounter; i++) {
+            if (challenges[i].challengeStatus == Status.expired) {
+                expiredChallenges[currentIndex] = challenges[i];
+                currentIndex++;
+            }
+        }
+        
+        return expiredChallenges;
+    }
 }
