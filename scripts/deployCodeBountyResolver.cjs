@@ -1,7 +1,7 @@
 const hre = require("hardhat");
 
 async function main() {
-  const codeBountyAddress = "0xA38232C301951902e8F807a94eEb624c443A40D3";
+  const codeBountyAddress = "0xE64fA322753b840Ab87895f069F4f85C5cD28A13";
 
   // Deploy the CodeBountyResolver contract with the CodeBounty address as constructor parameter
   const deployedContract = await hre.ethers.deployContract(
